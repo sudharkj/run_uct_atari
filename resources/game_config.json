@@ -1,0 +1,10 @@
+{
+  "VERSIONS": {
+    "v0": {
+      "obs_type": "image",
+      "frameskip": [2, 5],
+      "repeat_action_probability": 0.25,
+      "full_action_space": false
+    }
+  }
+}

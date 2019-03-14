@@ -6,8 +6,8 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 
-from .rnn import RNN
-from .runs import load_runs
+from utils.rnn import RNN
+from utils.runs import load_runs
 
 
 def train(net, optimizer, criterion, data):

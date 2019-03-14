@@ -1,8 +1,46 @@
 import cv2
-# import numpy as np
 import os
 import pickle
 import tarfile
+
+import numpy as np
+
+
+def rgb2gray(frame, average='mean'):
+    if average == 'cv2':
+        frame = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
+        frame = frame.astype(np.float32)
+    elif average == 'mean':
+        frame = frame.astype(np.float32)
+        frame = frame.mean(axis=2)
+    else:
+        raise NotImplementedError("wrong average type: %s" % average)
+
+    frame *= (1.0 / 255.0)
+    frame -= 0.5
+    return frame
+
+
+def make_color_state(frame):
+    frame = np.rollaxis(frame, 3, 1)
+    frame = frame.reshape([-1] + list(frame.shape[-2:]))
+    frame = frame.astype(np.float32)
+    frame *= (1.0 / 255.0)
+    return frame
+
+
+def make_state(frame, buffer, height=84, width=84, downsample=None, make_gray=True, average='mean'):
+    frame = resize(frame, height, width, downsample)
+    if make_gray:
+        frame = rgb2gray(frame, average)
+    buffer.append(frame)
+    while len(buffer) < buffer.maxlen:
+        buffer.append(frame)
+
+    frame = np.array(buffer)
+    if not make_gray:
+        frame = make_color_state(frame)
+    return np.expand_dims(frame, 0)
 
 
 def resize(frame, **kwargs):
