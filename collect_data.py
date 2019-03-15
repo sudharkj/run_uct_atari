@@ -17,13 +17,13 @@ parser = argparse.ArgumentParser(description="Run commands",
 parser.add_argument('--env', type=str, default="pong", help="Environment")
 parser.add_argument('--version', type=str, default="v0", help="Environment Version")
 parser.add_argument('--act_repeats', type=int, default=1, help="Action repeat times")
-parser.add_argument('--max_steps', type=int, default=10000, help="Maximum number of steps")
+parser.add_argument('--max_steps', type=int, default=1000, help="Maximum number of steps")
 parser.add_argument('--num_workers', type=int, default=8, help="Number of concurrent workers")
 parser.add_argument('--runs_per_worker', type=int, default=1, help="Number of runs per worker")
 parser.add_argument('--save_dir', type=str, default='data', help="Path where to dump collected data")
-parser.add_argument('--num_simulations', type=int, default=20,
+parser.add_argument('--num_simulations', type=int, default=5,
                     help="Number of simulations for selecting action with rollout policy")
-parser.add_argument('--search_horizontal', type=int, default=20, help="Horizontal search for each simulation")
+parser.add_argument('--search_horizontal', type=int, default=5, help="Horizontal search for each simulation")
 parser.add_argument('--gamma', type=float, default=1.0, help="Factor of reward")
 parser.add_argument('--exploration', type=float, default=1., help="Coefficient for exploration part")
 parser.add_argument('--prune_tree', default=False, action='store_true',
